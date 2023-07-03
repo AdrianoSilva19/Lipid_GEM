@@ -1,29 +1,9 @@
 import pathlib
 import re
-
+import definitions
+import file_utilities
 
 from neo4j import GraphDatabase, basic_auth
-
-def read_conf_file(path):
-    """
-    reading the configuration file
-    It must be assembled in the following manner: key = configuration value
-    It will return a dictionary in the following format: {workers : 3, limit : 100}
-    """
-    res = {}
-
-    with open(path) as file:
-        lines = file.readlines()
-        for line in lines:
-            if '=' in line:
-                prop = line.strip()
-                l_str = prop.split('=')
-                if len(l_str) >2:
-                    l_str[1] = "=".join(l_str[1:])
-
-                res[l_str[0].strip()] = l_str[1].strip()
-
-    return res
 
 
 class DatabaseAccessManager:
@@ -107,7 +87,7 @@ class DatabaseAccessManager:
     def read_database_credentials(self):
 
         if pathlib.Path(self.conf_file_path).exists():
-            configs = read_conf_file(self.conf_file_path)
+            configs = file_utilities.read_conf_file(self.conf_file_path)
 
             if "uri" in configs.keys() and "user" in configs.keys() and "password" in configs.keys():
                 uri = configs["uri"]
@@ -123,7 +103,7 @@ class DatabaseAccessManager:
 
 def read_config_file(file_path):
     if pathlib.Path(file_path).exists():
-        configs = read_conf_file(file_path)
+        configs = file_utilities.read_conf_file(file_path)
 
         if "uri" in configs.keys() and "user" in configs.keys() and "password" in configs.keys():
             uri = configs["uri"]
@@ -135,7 +115,3 @@ def read_config_file(file_path):
     else:
 
         raise Exception("Please insert the required database information using set_database_information function")
-
-
-
-
