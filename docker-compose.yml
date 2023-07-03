@@ -1,0 +1,26 @@
+version: '3'
+services:
+  Lipid_GEM:
+    image: neo4j:4.1.1
+    environment:
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*,algo.*
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+      - NEO4J_dbms_security_procedures_whitelist=apoc.*,algo.*
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_dbms_ssl_policy_default_client_auth=NONE
+      - NEO4J_dbms_shell_enabled=true
+      - NEO4JLABS_PLUGINS=["apoc"]
+      - NEO4J_dbms_connector_https_enabled=false
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.\\\*
+      - NEO4J_apoc.import.file.enabled=true   
+      - NEO4J_dbms_backup_enabled=true
+      - NEO4J_AUTH=neo4j/1234
+      - NEO4J_dbms_memory_heap_initial__size=2G
+      - NEO4J_dbms_memory_heap_max__size=4G
+      - NEO4J_dbms_memory_pagecache_size=2G
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - /Lipid_GEM:/data
+    mem_limit: 4g
