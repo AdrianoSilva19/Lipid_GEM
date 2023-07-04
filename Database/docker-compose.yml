@@ -23,3 +23,10 @@ services:
       - 7687:7687
     volumes:
       - /Lipid_GEM:/data
+networks:
+  neo4j-network:
+    driver: bridge
+    ipam:
+       driver: default
+       config:
+         - subnet: 10.12.27.1/29

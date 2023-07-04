@@ -1,10 +1,18 @@
+#### CREATE THE DATABASE ####
 
-docker stop <<original_constainer>>
+docker-compose up -d
+
+docker-compose down
+
+#### POPULATE DATABASE ####
+#### LINUX CMD ####
 
 docker run --rm -v $(pwd):/backup -v /Lipid_GEM:/data debian:jessie bash -c "cd /data && tar xvf /backup/backup.tar --strip 1"
 
-#### WINDOWS ####
+#### WINDOWS CMD ####
 
 docker run --rm -v %cd%:/backup -v /Lipid_GEM:/data debian:jessie bash -c "cd /data && tar xvf /backup/backup.tar --strip 1"
 
-docker start <<original_constainer>>
+#### FINALY ####  
+
+docker-compose up -d
