@@ -1,0 +1,6 @@
+**/__pycache__
+/*.csv
+/*.tsv
+/*.xlsx
+Annotation/models/results/*
+Annotation/models/models_annotated/*
