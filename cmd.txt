@@ -3,4 +3,8 @@ docker stop <<original_constainer>>
 
 docker run --rm -v $(pwd):/backup -v /Lipid_GEM:/data debian:jessie bash -c "cd /data && tar xvf /backup/backup.tar --strip 1"
 
+#### WINDOWS ####
+
+docker run --rm -v %cd%:/backup -v /Lipid_GEM:/data debian:jessie bash -c "cd /data && tar xvf /backup/backup.tar --strip 1"
+
 docker start <<original_constainer>>
