@@ -2,5 +2,6 @@
 /*.csv
 /*.tsv
 /*.xlsx
+/*.tar
 Annotation/models/results/*
 Annotation/models/models_annotated/*
