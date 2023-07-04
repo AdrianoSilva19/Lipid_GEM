@@ -1,6 +1,5 @@
 import pathlib
 import re
-import definitions
 import file_utilities
 
 from neo4j import GraphDatabase, basic_auth
@@ -19,21 +18,25 @@ class DatabaseAccessManager:
         else:
             return self._driver
 
-    def establish_connection(self,path = None, uri: str = None, user: str = None, password: str = None):
+    def establish_connection(
+        self, path=None, uri: str = None, user: str = None, password: str = None
+    ):
         if uri is None or user is None or password is None:
             uri, user, password = self._get_credentials_from_file(path=path)
         self._driver = GraphDatabase.driver(uri, auth=basic_auth(user, password))
 
     def establish_connection_from_file(self, path):
         uri, user, password = self._get_credentials_from_file(path)
-        self.establish_connection(path,uri, user, password)
+        self.establish_connection(path, uri, user, password)
 
     def connect(self):
         self.establish_connection()
         return self.driver
 
     @staticmethod
-    def write_config_file(file_path: str, uri: str = None, user: str = None, password: str = None):
+    def write_config_file(
+        file_path: str, uri: str = None, user: str = None, password: str = None
+    ):
         uri_bool = False
         user_bool = False
         pass_bool = False
@@ -83,13 +86,15 @@ class DatabaseAccessManager:
             uri, user, password = self.read_database_credentials()
             return uri, user, password
 
-
     def read_database_credentials(self):
-
         if pathlib.Path(self.conf_file_path).exists():
             configs = file_utilities.read_conf_file(self.conf_file_path)
 
-            if "uri" in configs.keys() and "user" in configs.keys() and "password" in configs.keys():
+            if (
+                "uri" in configs.keys()
+                and "user" in configs.keys()
+                and "password" in configs.keys()
+            ):
                 uri = configs["uri"]
                 user = configs["user"]
                 password = configs["password"]
@@ -97,15 +102,20 @@ class DatabaseAccessManager:
                 return uri, user, password
 
         else:
-
-            raise Exception("Please insert the required database information using set_database_information function")
+            raise Exception(
+                "Please insert the required database information using set_database_information function"
+            )
 
 
 def read_config_file(file_path):
     if pathlib.Path(file_path).exists():
         configs = file_utilities.read_conf_file(file_path)
 
-        if "uri" in configs.keys() and "user" in configs.keys() and "password" in configs.keys():
+        if (
+            "uri" in configs.keys()
+            and "user" in configs.keys()
+            and "password" in configs.keys()
+        ):
             uri = configs["uri"]
             user = configs["user"]
             password = configs["password"]
@@ -113,5 +123,6 @@ def read_config_file(file_path):
             return uri, user, password
 
     else:
-
-        raise Exception("Please insert the required database information using set_database_information function")
+        raise Exception(
+            "Please insert the required database information using set_database_information function"
+        )
