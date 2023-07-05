@@ -24,7 +24,7 @@ services:
     volumes:
       - /Lipid_GEM:/data
 networks:
-  neo4j-network:
+  app:
     driver: bridge
     ipam:
        driver: default
