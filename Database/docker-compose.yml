@@ -23,10 +23,21 @@ services:
       - 7687:7687
     volumes:
       - /Lipid_GEM:/data
+    networks:
+      - app
+
+  code_container:
+    build:
+      context: ..
+      dockerfile: ./Dockerfile
+    volumes:
+      - ../Annotation/models/models_annotated:/Annotation/models/models_annotated
+      - ../Annotation/models/models_case_study:/Annotation/models/models_case_study
+    depends_on:
+      - Lipid_GEM
+    networks:
+      - app
+
 networks:
   app:
     driver: bridge
-    ipam:
-       driver: default
-       config:
-         - subnet: 10.12.27.1/29
